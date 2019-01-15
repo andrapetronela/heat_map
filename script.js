@@ -21,6 +21,14 @@ const svg = d3.select('body')
 const description = d3.select('#description')
                         .html('Base Temperature: ' + dataset.baseTemperature)
 
-console.log(dataset.baseTemperature);
-
+const xScale = d3.scaleLinear()
+                    .domain([d3.min(dataset.monthlyVariance, (d) => d.year), d3.max(dataset.monthlyVariance, (d) => d.year)])
+                    .range([margin, width-margin]);
+    
+const xAxis = d3.axisBottom(xScale)
+                .tickFormat(d3.format('d'));
+svg.append('g')
+    .attr('transform', 'translate(0, ' + (height - margin) + ')')
+    .attr('id', 'x-axis')
+    .call(xAxis);
 }
