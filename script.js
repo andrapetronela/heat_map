@@ -12,8 +12,8 @@ const width = 800;
 const height = 400;
 const margin = 40;
     
-const months = ["January","February","March","April","May","June","July",
- "August","September","October","November","December"];
+const months = ['January','February','March','April','May','June','July',
+'August','September','October','November','December'];
     
 const svg = d3.select('body')
                 .append('svg')
@@ -24,11 +24,9 @@ const svg = d3.select('body')
 const description = d3.select('#description')
                         .html('Base Temperature: ' + dataset.baseTemperature);
     
-const month = d3.timeFormat('%B');
-
 const xScale = d3.scaleLinear()
                     .domain([d3.min(dataset.monthlyVariance, (d) => d.year), d3.max(dataset.monthlyVariance, (d) => d.year)])
-                    .range([margin, width-margin]);
+                    .range([margin, width]);
     
 const yScale = d3.scaleLinear()
                     .domain([0, 12])
@@ -39,18 +37,33 @@ const xAxis = d3.axisBottom(xScale)
 
 const yAxis = d3.axisLeft(yScale)
                 .tickFormat((d, i) => months[i]);
-                
-    
 
- 
 svg.append('g')
     .attr('transform', 'translate(0, ' + (height - margin) + ')')
     .attr('id', 'x-axis')
     .call(xAxis);
 
 svg.append('g')
-    .attr('transform', 'translate(50, 0)')
+    .attr('transform', 'translate(40, 0)')
     .attr('id', 'y-axis')
+    .style('font', '8px times')
     .attr('x', 0)
     .call(yAxis);
+    
+svg.selectAll('rect')
+    .data(dataset.monthlyVariance)
+    .enter()
+    .append('rect')
+    .attr('class', 'cell')
+    .attr('x', (d, i) => margin + i * (width - margin) / dataset.monthlyVariance.length)
+    .attr('y', (d) => yScale(d.month - 1))
+    .attr('width', (width - margin) / dataset.monthlyVariance.length)
+    .attr('height', (d) => (height - margin) / 12)
+    .attr('data-month', (d) => d.month)
+    .attr('data-year', (d) => d.year)
+    .attr('data-temp', (d) => d.variance)
+    .attr('fill', 'red')
 }
+
+
+
