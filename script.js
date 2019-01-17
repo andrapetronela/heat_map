@@ -24,18 +24,18 @@ const description = d3.select('#description')
                         .html('Base Temperature: ' + dataset.baseTemperature);
     
 const xScale = d3.scaleLinear()
-                    .domain([d3.min(dataset.monthlyVariance, (d) => d.year), d3.max(dataset.monthlyVariance, (d) => d.year)])
-                    .range([margin, width]);
+                    .domain([d3.min(dataset.monthlyVariance,(d) => d.year), d3.max(dataset.monthlyVariance,(d) => d.year)])
+                    .range([margin, width-5]);
     
 const yScale = d3.scaleLinear()
-                    .domain([0, 12])
-                    .range([5, height-margin]);
+                    .domain([0, months.length-1])
+                    .range([5, height-margin*2]);
     
 const xAxis = d3.axisBottom(xScale)
                 .tickFormat(d3.format('d'));
 
 const yAxis = d3.axisLeft(yScale)
-                .tickFormat((d, i) => months[i]);
+                .tickFormat((d, i) => months[d]);
 
 svg.append('g')
     .attr('transform', 'translate(0, ' + (height - margin) + ')')
@@ -45,7 +45,7 @@ svg.append('g')
 svg.append('g')
     .attr('transform', 'translate(40, 0)')
     .attr('id', 'y-axis')
-    .style('font', '8px times')
+    .style('font', '7px times')
     .attr('x', 0)
     .call(yAxis);
     
@@ -54,12 +54,12 @@ svg.selectAll('rect')
     .enter()
     .append('rect')
     .attr('class', 'cell')
-    .attr('x', (d, i) => margin + i * (width - margin) / dataset.monthlyVariance.length -1)
-    .attr('y', (d) => yScale(d.month - 1))
+//    .attr('x', (d, i) => margin + i * (width - margin) / dataset.monthlyVariance.length -1)
+    .attr('x', (d, i) => xScale(d.year))
+    .attr('y', (d) => yScale(d.month-1))
 //    .attr('width', width / dataset.monthlyVariance.length)
-    .attr('width', (d) => xScale(d.year))
-    .attr('height', (d) => yScale(1))
-//    .attr('height', (d) => (height - margin) / 12)
+    .attr('width', (d) => xScale(d.year - 5))
+    .attr('height', (d) => (height-margin) / 12)
     .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
     .attr('data-temp', (d) => d.variance)
