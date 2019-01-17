@@ -8,12 +8,11 @@ req.onload = () => {
     
 const dataset = req;
 
-const width = 1000;
+const width = 800;
 const height = 400;
 const margin = 40;
     
-const months = ['January','February','March','April','May','June','July',
-'August','September','October','November','December'];
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     
 const svg = d3.select('body')
                 .append('svg')
@@ -55,15 +54,22 @@ svg.selectAll('rect')
     .enter()
     .append('rect')
     .attr('class', 'cell')
-    .attr('x', (d, i) => margin + i * (width - margin) / dataset.monthlyVariance.length)
+    .attr('x', (d, i) => margin + i * (width - margin) / dataset.monthlyVariance.length -1)
     .attr('y', (d) => yScale(d.month - 1))
-    .attr('width', (width-margin) / dataset.monthlyVariance.length)
-    .attr('height', (d) => (height - margin) / 12)
+//    .attr('width', width / dataset.monthlyVariance.length)
+    .attr('width', (d) => xScale(d.year))
+    .attr('height', (d) => yScale(1))
+//    .attr('height', (d) => (height - margin) / 12)
     .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
     .attr('data-temp', (d) => d.variance)
-    .attr('fill', 'red')
-    .style('stroke', 'black')
+    .attr('fill', (d) => { if (Math.sign(d.variance) === 1) { return '#dbef86'}
+                            else if (Math.sign(d.variance) === -1 && d.variance > -1.5) { return '#dbe561'}
+                            else if (d.variance > 1.5) { return '#e5a361'}
+                            else if (d.variance > 2) { return '#4a8ad4'}
+                            else if (d.variance === 0) { return '#4ad48f' }
+                            else return '#e5b761';
+                         } )
 }
 
 
