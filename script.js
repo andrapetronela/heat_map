@@ -8,7 +8,7 @@ req.onload = () => {
     
 const dataset = req;
 
-const width = 800;
+const width = 1000;
 const height = 400;
 const margin = 40;
     
@@ -57,12 +57,13 @@ svg.selectAll('rect')
     .attr('class', 'cell')
     .attr('x', (d, i) => margin + i * (width - margin) / dataset.monthlyVariance.length)
     .attr('y', (d) => yScale(d.month - 1))
-    .attr('width', (width - margin) / dataset.monthlyVariance.length)
+    .attr('width', (width-margin) / dataset.monthlyVariance.length)
     .attr('height', (d) => (height - margin) / 12)
-    .attr('data-month', (d) => d.month)
+    .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
     .attr('data-temp', (d) => d.variance)
     .attr('fill', 'red')
+    .style('stroke', 'black')
 }
 
 
