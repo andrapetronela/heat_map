@@ -48,17 +48,15 @@ svg.append('g')
     .style('font', '7px times')
     .attr('x', 0)
     .call(yAxis);
-    
+   
 svg.selectAll('rect')
     .data(dataset.monthlyVariance)
     .enter()
     .append('rect')
     .attr('class', 'cell')
-//    .attr('x', (d, i) => margin + i * (width - margin) / dataset.monthlyVariance.length -1)
     .attr('x', (d, i) => xScale(d.year))
     .attr('y', (d) => yScale(d.month-1))
-//    .attr('width', width / dataset.monthlyVariance.length)
-    .attr('width', (d) => xScale(d.year - 5))
+    .attr('width', (width-margin) / (dataset.monthlyVariance[dataset.monthlyVariance.length-1].year - dataset.monthlyVariance[0].year))
     .attr('height', (d) => (height-margin) / 12)
     .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
@@ -69,7 +67,7 @@ svg.selectAll('rect')
                             else if (d.variance > 2) { return '#4a8ad4'}
                             else if (d.variance === 0) { return '#4ad48f' }
                             else return '#e5b761';
-                         } )
+                         })
 }
 
 
