@@ -48,6 +48,10 @@ svg.append('g')
     .style('font', '7px times')
     .attr('x', 0)
     .call(yAxis);
+    
+    var sequentialScale = d3.scaleSequential()
+  .domain([-7, 10])
+  .interpolator(d3.interpolateRainbow)
    
 svg.selectAll('rect')
     .data(dataset.monthlyVariance)
@@ -61,13 +65,7 @@ svg.selectAll('rect')
     .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
     .attr('data-temp', (d) => d.variance)
-    .attr('fill', (d) => { if (Math.sign(d.variance) === 1) { return '#dbef86'}
-                            else if (Math.sign(d.variance) === -1 && d.variance > -1.5) { return '#dbe561'}
-                            else if (d.variance > 1.5) { return '#e5a361'}
-                            else if (d.variance > 2) { return '#4a8ad4'}
-                            else if (d.variance === 0) { return '#4ad48f' }
-                            else return '#e5b761';
-                         })
+    .attr('fill', (d) => sequentialScale(d.variance))
 }
 
 
