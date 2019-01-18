@@ -21,7 +21,7 @@ const svg = d3.select('body')
                 .attr('height', height);
 
 const description = d3.select('#description')
-                        .html('Base Temperature: ' + dataset.baseTemperature);
+                        .html(dataset.monthlyVariance[0].year + ' - ' + dataset.monthlyVariance[dataset.monthlyVariance.length-1].year  + '<br>Base Temperature: ' + dataset.baseTemperature + '℃' );
     
 const xScale = d3.scaleLinear()
                     .domain([d3.min(dataset.monthlyVariance,(d) => d.year), d3.max(dataset.monthlyVariance,(d) => d.year)])
