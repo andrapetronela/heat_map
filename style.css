@@ -18,7 +18,15 @@ body {
 }
 
 #chart {
-    background-color: #d8bcbc;
+    background-color: #ffffff;
     display: block;
     margin: 2rem auto;
+}
+
+#legend {
+    width: 10rem;
+    height: 1rem;
+    display: block;
+    margin: 2rem auto 0;
+    border: 1px solid #000;
 }

@@ -20,6 +20,11 @@ const svg = d3.select('body')
                 .attr('width', width)
                 .attr('height', height);
 
+const legend = d3.select('body')
+                    .append('rect')
+                    .attr('id', 'legend')
+                    
+
 const description = d3.select('#description')
                         .html(dataset.monthlyVariance[0].year + ' - ' + dataset.monthlyVariance[dataset.monthlyVariance.length-1].year  + '<br>Base Temperature: ' + dataset.baseTemperature + '℃' );
     
@@ -48,10 +53,6 @@ svg.append('g')
     .style('font', '7px times')
     .attr('x', 0)
     .call(yAxis);
-    
-    var sequentialScale = d3.scaleSequential()
-  .domain([-7, 10])
-  .interpolator(d3.interpolateRainbow)
    
 svg.selectAll('rect')
     .data(dataset.monthlyVariance)
@@ -65,7 +66,11 @@ svg.selectAll('rect')
     .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
     .attr('data-temp', (d) => d.variance)
-    .attr('fill', (d) => sequentialScale(d.variance))
+    .attr('fill', (d) => { if (d.variance < -4) return '#039be5'
+                            else if (d.variance < -2) return '#b2ebf2' 
+                            else if (d.variance < 0) return '#ffffb1'
+                            else if (d.variance > 0.3) return '#ff7961'
+                            else return '#ffb74d'})
 }
 
 
