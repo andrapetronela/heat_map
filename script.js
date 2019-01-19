@@ -23,7 +23,7 @@ const svg = d3.select('body')
 const legend = d3.select('#container')
                     .append('svg')
                     .attr('id', 'legend')
-                    .attr('width', 100)
+                    .attr('width', 120)
                     .attr('height', 20);
                     
 const description = d3.select('#description')
@@ -72,10 +72,11 @@ svg.selectAll('rect')
     .attr('data-year', (d) => d.year)
     .attr('data-temp', (d) => d.variance)
     .attr('fill', (d) => { if (d.variance < -4) return '#039be5'
-                            else if (d.variance < -2) return '#b2ebf2' 
-                            else if (d.variance < 0) return '#ffffb1'
-                            else if (d.variance > 0.3) return '#ff7961'
-                            else return '#ffb74d'})
+                            else if (d.variance < -3) return '#b2ebf2' 
+                            else if (d.variance < 0.5) return '#fff8f7'
+                            else if (d.variance > 0.5 && d.variance < 0.7) return '#f87f76'
+                            else if (d.variance > 0.7) return '#f55246'
+                            else return '#faaca7'})
     .on('mouseover', (d) => {
         tooltip
             .style('left', 15 + d3.event.pageX + 'px')
@@ -83,12 +84,12 @@ svg.selectAll('rect')
             .style('padding', '1rem')
             .style('visibility', 'visible')
             .attr('data-year', d.year)
-            .html(d.year + '<br>' + 'Variance: ' + d.variance)
+            .html('<b>Year:</b> ' + d.year + '<br>' + '<b>Temperature:</b> ' + (dataset.baseTemperature + d.variance).toFixed(2) + '℃')
 })
     .on('mouseout', (d) => {
         tooltip.style('visibility', 'hidden');
 })
-const colors = ['#039be5', '#b2ebf2', '#ffffb1', '#ffb74d', '#ff7961'];
+const colors = ['#039be5', '#b2ebf2', '#fff8f7', '#faaca7', '#f87f76', '#f55246'];
 legend.selectAll('rect')
         .data(colors)
         .enter()
