@@ -18,16 +18,15 @@ body {
 
 #description {
     text-align: center;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 #chart {
-    background: rgba(255, 255, 255, 0.91);
+    background: #140014;
     display: block;
     margin: 2rem auto;
-    border-radius: 10px;
     font-weight: 600;
-    color: #140014;
+    color: #fff;
 }
 
 .cell:hover {
@@ -36,7 +35,7 @@ body {
 
 #legend {
     display: block;
-    margin: 5px auto 0;
+    margin: 5px auto 1rem;
 }
 
 #tooltip {
@@ -46,6 +45,7 @@ body {
     position: absolute; 
     transition: all .5s;
     border-radius: 8px;
+    visibility: hidden;
 }
 
 #legendTooltip {
@@ -53,4 +53,5 @@ body {
     background: rgba(0, 0, 0, 0.7);
     padding: .5rem 1rem;
     border-radius: 4px;
+    visibility: hidden;
 }
