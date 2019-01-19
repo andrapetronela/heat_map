@@ -78,7 +78,7 @@ svg.selectAll('rect')
                             else return '#ffb74d'})
     .on('mouseover', (d) => {
         tooltip
-            .style('left', d3.event.pageX + 'px')
+            .style('left', 15 + d3.event.pageX + 'px')
             .style('top', d3.event.pageY + 'px')
             .style('padding', '1rem')
             .style('visibility', 'visible')
