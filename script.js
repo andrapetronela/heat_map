@@ -21,10 +21,13 @@ const svg = d3.select('body')
                 .attr('height', height);
 
 const legend = d3.select('body')
-                    .append('rect')
+                    .append('svg')
                     .attr('id', 'legend')
+                    .attr('x', 70)
+                    .attr('y', 500)
+                    .attr('width', 100)
+                    .attr('height', 20)
                     
-
 const description = d3.select('#description')
                         .html(dataset.monthlyVariance[0].year + ' - ' + dataset.monthlyVariance[dataset.monthlyVariance.length-1].year  + '<br>Base Temperature: ' + dataset.baseTemperature + '℃' );
     
@@ -70,7 +73,21 @@ svg.selectAll('rect')
                             else if (d.variance < -2) return '#b2ebf2' 
                             else if (d.variance < 0) return '#ffffb1'
                             else if (d.variance > 0.3) return '#ff7961'
-                            else return '#ffb74d'})
+                            else return '#ffb74d'});
+const colors = ['#039be5', '#b2ebf2', '#ffffb1', '#ffb74d', '#ff7961'];
+legend.selectAll('rect')
+        .data(colors)
+        .enter()
+        .append('rect')
+        .attr('class', 'legend_rect')
+        .attr('x', (d, i) => 20 * i )
+        .attr('y', 0)
+        .attr('width', 20)
+        .attr('height', 20)
+        .style('z-index', '555')
+        .style('stroke', '1')
+        .style('stroke', 'black')
+        .attr('fill', (d, i) => colors[i])
 }
 
 
