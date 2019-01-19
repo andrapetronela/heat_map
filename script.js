@@ -12,7 +12,7 @@ const width = 800;
 const height = 400;
 const margin = 40;
     
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     
 const svg = d3.select('body')
                 .append('svg')
@@ -23,7 +23,7 @@ const svg = d3.select('body')
 const legend = d3.select('#container')
                     .append('svg')
                     .attr('id', 'legend')
-                    .attr('width', 120)
+                    .attr('width', 80)
                     .attr('height', 20);
                     
 const description = d3.select('#description')
@@ -50,12 +50,14 @@ const tooltip = d3.select('#container')
 svg.append('g')
     .attr('transform', 'translate(0, ' + (height - margin) + ')')
     .attr('id', 'x-axis')
+    .style('font-size', '13px')
     .call(xAxis);
 
 svg.append('g')
     .attr('transform', 'translate(40, 0)')
     .attr('id', 'y-axis')
-    .style('font', '7px times')
+    .style('font', '11px times')
+    .style('font-family', 'Lato')
     .attr('x', 0)
     .call(yAxis);
    
@@ -71,12 +73,11 @@ svg.selectAll('rect')
     .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
     .attr('data-temp', (d) => d.variance)
-    .attr('fill', (d) => { if (d.variance < -4) return '#039be5'
-                            else if (d.variance < -3) return '#b2ebf2' 
-                            else if (d.variance < 0.5) return '#fff8f7'
-                            else if (d.variance > 0.5 && d.variance < 0.7) return '#f87f76'
-                            else if (d.variance > 0.7) return '#f55246'
-                            else return '#faaca7'})
+    .attr('fill', (d) => { if (d.variance < -2) return '#00c853' 
+                            else if (d.variance < 0.4) return '#ffee58'
+                            else if (d.variance >= 0.4 && d.variance <= 0.7) return '#ff5722'
+                            else if (d.variance >= 0.7) return '#ba000d'
+                        })
     .on('mouseover', (d) => {
         tooltip
             .style('left', 15 + d3.event.pageX + 'px')
@@ -89,7 +90,13 @@ svg.selectAll('rect')
     .on('mouseout', (d) => {
         tooltip.style('visibility', 'hidden');
 })
-const colors = ['#039be5', '#b2ebf2', '#fff8f7', '#faaca7', '#f87f76', '#f55246'];
+const colors = ['#00c853', '#ffee58', '#ff5722', '#ba000d'];
+const legendText = ['minor', 'moderate', 'major', 'critical'];
+
+const legendTooltip = d3.select('#container')
+                        .append('div')
+                        .attr('id', 'legendTooltip');
+      
 legend.selectAll('rect')
         .data(colors)
         .enter()
@@ -102,7 +109,16 @@ legend.selectAll('rect')
         .style('z-index', '555')
         .style('stroke', '1')
         .style('stroke', 'black')
-        .attr('fill', (d, i) => colors[i]);
+        .attr('fill', (d, i) => colors[i])
+        .on('mouseover', (d, i) => {
+            legendTooltip
+                .style('left', 15 + d3.event.pageX + 'px')
+                .style('top', d3.event.pageY + 'px')
+                .style('color', '#fff')
+                .style('visibility', 'visible')
+                .html(legendText[i])
+        })
+        .on('mouseout', (d, i) => legendTooltip.style('visibility', 'hidden'))
     
 }
 
