@@ -23,9 +23,22 @@ body {
     margin: 2rem auto;
 }
 
+.cell:hover {
+    fill: #333;
+}
+
 #legend {
     display: block;
-    margin: 2rem auto 0;
+    margin: 0 auto;
 }
+
+#tooltip {
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 555;
+    color: #fff;
+    position: absolute; 
+    transition: all .5s;
+}
+
 
 

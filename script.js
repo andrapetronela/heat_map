@@ -20,16 +20,14 @@ const svg = d3.select('body')
                 .attr('width', width)
                 .attr('height', height);
 
-const legend = d3.select('body')
+const legend = d3.select('#container')
                     .append('svg')
                     .attr('id', 'legend')
-                    .attr('x', 70)
-                    .attr('y', 500)
                     .attr('width', 100)
-                    .attr('height', 20)
+                    .attr('height', 20);
                     
 const description = d3.select('#description')
-                        .html(dataset.monthlyVariance[0].year + ' - ' + dataset.monthlyVariance[dataset.monthlyVariance.length-1].year  + '<br>Base Temperature: ' + dataset.baseTemperature + '℃' );
+                        .html(dataset.monthlyVariance[0].year + ' - ' + dataset.monthlyVariance[dataset.monthlyVariance.length-1].year  + '<br>Base Temperature: ' + dataset.baseTemperature + '℃ <br><br>' + 'Legend');
     
 const xScale = d3.scaleLinear()
                     .domain([d3.min(dataset.monthlyVariance,(d) => d.year), d3.max(dataset.monthlyVariance,(d) => d.year)])
@@ -44,6 +42,10 @@ const xAxis = d3.axisBottom(xScale)
 
 const yAxis = d3.axisLeft(yScale)
                 .tickFormat((d, i) => months[d]);
+    
+const tooltip = d3.select('#container')
+                    .append('div')
+                    .attr('id', 'tooltip');
 
 svg.append('g')
     .attr('transform', 'translate(0, ' + (height - margin) + ')')
@@ -73,7 +75,19 @@ svg.selectAll('rect')
                             else if (d.variance < -2) return '#b2ebf2' 
                             else if (d.variance < 0) return '#ffffb1'
                             else if (d.variance > 0.3) return '#ff7961'
-                            else return '#ffb74d'});
+                            else return '#ffb74d'})
+    .on('mouseover', (d) => {
+        tooltip
+            .style('left', d3.event.pageX + 'px')
+            .style('top', d3.event.pageY + 'px')
+            .style('padding', '1rem')
+            .style('visibility', 'visible')
+            .attr('data-year', d.year)
+            .html(d.year + '<br>' + 'Variance: ' + d.variance)
+})
+    .on('mouseout', (d) => {
+        tooltip.style('visibility', 'hidden');
+})
 const colors = ['#039be5', '#b2ebf2', '#ffffb1', '#ffb74d', '#ff7961'];
 legend.selectAll('rect')
         .data(colors)
@@ -87,7 +101,8 @@ legend.selectAll('rect')
         .style('z-index', '555')
         .style('stroke', '1')
         .style('stroke', 'black')
-        .attr('fill', (d, i) => colors[i])
+        .attr('fill', (d, i) => colors[i]);
+    
 }
 
 
