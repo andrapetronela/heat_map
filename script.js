@@ -8,9 +8,14 @@ req.onload = () => {
     
 const dataset = req;
 
-const width = 800;
+let width = window.innerWidth - 100;
 const height = 400;
 const margin = 40;
+    
+if (window.innerWidth < 700) {
+    width = window.innerWidth;
+    console.log(700)
+}
     
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     
@@ -85,7 +90,7 @@ svg.selectAll('rect')
             .style('padding', '1rem')
             .style('visibility', 'visible')
             .attr('data-year', d.year)
-            .html('<b>Year:</b> ' + d.year + '<br>' + '<b>Temperature:</b> ' + (dataset.baseTemperature + d.variance).toFixed(2) + '℃')
+            .html(months[d.month-1] + ' ' + d.year + '<br>' + '<b>Temperature:</b> ' + (dataset.baseTemperature + d.variance).toFixed(2) + '℃')
 })
     .on('mouseout', (d) => {
         tooltip.style('visibility', 'hidden');
