@@ -55,3 +55,19 @@ body {
     border-radius: 4px;
     visibility: hidden;
 }
+
+#orientation {
+    text-align: center;
+    background: #000;
+    border-radius: 4px;
+    width: 11rem;
+    display: block;
+    padding: 1rem;
+    margin: 0 auto;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+}
