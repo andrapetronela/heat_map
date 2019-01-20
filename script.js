@@ -58,11 +58,10 @@ svg.append('g')
     .call(xAxis);
 
 svg.append('g')
-    .attr('transform', 'translate(40, 0)')
+    .attr('transform', 'translate(38, 0)')
     .attr('id', 'y-axis')
     .style('font', '11px times')
     .style('font-family', 'Lato')
-    .attr('x', 0)
     .call(yAxis);
    
 svg.selectAll('rect')
