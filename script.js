@@ -15,6 +15,10 @@ const margin = 40;
 if (window.innerWidth < 700) {
     width = 800;
     document.getElementById('orientation').style.visibility = 'visible';
+    window.addEventListener('orientationchange', () => {
+        width = window.innerWidth;
+        document.getElementById('orientation').style.visibility = 'hidden';
+    })
 } 
     
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
