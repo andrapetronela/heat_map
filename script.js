@@ -14,11 +14,6 @@ const margin = 40;
     
 if (window.innerWidth < 700) {
     width = 800;
-    document.getElementById('orientation').style.visibility = 'visible';
-    window.addEventListener('orientationchange', () => {
-        width = window.innerWidth;
-        document.getElementById('orientation').style.visibility = 'hidden';
-    })
 } 
     
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
@@ -82,10 +77,10 @@ svg.selectAll('rect')
     .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
     .attr('data-temp', (d) => d.variance)
-    .attr('fill', (d) => { if (d.variance < -2) return '#00c853' 
-                            else if (d.variance < 0.4) return '#ffee58'
-                            else if (d.variance >= 0.4 && d.variance <= 0.7) return '#ff5722'
-                            else if (d.variance >= 0.7) return '#ba000d'
+    .attr('fill', (d) => { if (d.variance < -2) return '#56EF44' 
+                            else if (d.variance < 0.4) return '#C7F855'
+                            else if (d.variance >= 0.4 && d.variance <= 0.7) return '#FEB92A'
+                            else if (d.variance >= 0.7) return '#F95504'
                         })
     .on('mouseover', (d) => {
         tooltip
@@ -99,7 +94,7 @@ svg.selectAll('rect')
     .on('mouseout', (d) => {
         tooltip.style('visibility', 'hidden');
 })
-const colors = ['#00c853', '#ffee58', '#ff5722', '#ba000d'];
+const colors = ['#56EF44', '#C7F855', '#FEB92A', '#F95504'];
 const legendText = ['minor', 'moderate', 'major', 'critical'];
 
 const legendTooltip = d3.select('#container')
@@ -130,6 +125,3 @@ legend.selectAll('rect')
         .on('mouseout', (d, i) => legendTooltip.style('visibility', 'hidden'))
     
 }
-
-
-
