@@ -85,13 +85,13 @@ svg.selectAll('rect')
                         })
     .on('mouseover', (d) => {
         tooltip
-            .style('left', 15 + d3.event.pageX + 'px')
-            .style('top', d3.event.pageY + 'px')
+            .style('left', d3.event.pageX - 80 + 'px')
+            .style('top', d3.event.pageY + 15 + 'px')
             .style('padding', '1rem')
             .style('visibility', 'visible')
             .attr('data-year', d.year)
-            .html(months[d.month-1] + ' ' + d.year + '<br>' + '<b>Temperature:</b> ' + (dataset.baseTemperature + d.variance).toFixed(2) + '℃')
-})
+            .html(months[d.month-1] + ', ' + d.year + '<br>' + '<b>Temperature:</b> ' + (dataset.baseTemperature + d.variance).toFixed(2) + '℃')
+    })
     .on('mouseout', (d) => {
         tooltip.style('visibility', 'hidden');
 })
