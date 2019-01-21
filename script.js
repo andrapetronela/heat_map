@@ -76,7 +76,7 @@ svg.selectAll('rect')
     .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
     .attr('data-temp', (d) => d.variance)
-    .attr('fill', (d) => { if (d.variance < -2) return '#56EF44' 
+    .attr('fill', (d) => { if (d.variance < -2) return '#2bc32b' 
                             else if (d.variance < 0.4) return '#C7F855'
                             else if (d.variance >= 0.4 && d.variance <= 0.7) return '#FEB92A'
                             else if (d.variance >= 0.7) return '#F95504'
@@ -93,7 +93,7 @@ svg.selectAll('rect')
     .on('mouseout', (d) => {
         tooltip.style('visibility', 'hidden');
 })
-const colors = ['#56EF44', '#C7F855', '#FEB92A', '#F95504'];
+const colors = ['#2bc32b', '#C7F855', '#FEB92A', '#F95504'];
 const legendText = ['minor', 'moderate', 'major', 'critical'];
 
 const legendTooltip = d3.select('#container')

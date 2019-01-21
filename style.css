@@ -22,7 +22,7 @@ body {
 }
 
 #chart {
-    background: linear-gradient(#C7F855 1%, #8BF74B, #aaf97c, #C7FB51, #dcfd93, #e1fda4, #e1fda4, #fffab1, #fffcd3, #fffab1, #FDE257, #FFEB48, #F5C021, #FF8B19, #F95504);
+    background: linear-gradient(#C7F855 .1%, #b5fa8c, #aaf97c 35%, #fffab1, #fffcd3, #fffab1 50%, #FDE257, #FFEB48, #F5C021, #FF8B19, #F95504);
     display: block;
     margin: 2rem auto;
     font-weight: 600;
@@ -31,7 +31,7 @@ body {
 }
 
 .cell:hover {
-    fill: #4A97FF;
+    fill: #140014;
 }
 
 #legend {
